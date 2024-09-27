@@ -56,5 +56,4 @@
     "node": ">=20.13.1"
   },
   "packageManager": "pnpm@8.6.8+sha512.3adac245413b56a4722a5cbd13781f1316473801ed143a66ba5c9514aae7977bff9f6c4972476e795ba6589a94039147c5c44ffd3e36afc3fc083afd76e3cff7"
-  
 }
