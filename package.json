@@ -48,6 +48,7 @@
     "c8": "^10.1.2",
     "playwright": "^1.39.0",
     "prettier": "^3.3.3",
+    "semantic-release": "^24.1.2",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },
