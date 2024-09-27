@@ -2,7 +2,13 @@
   "name": "@defuse/swap-facade",
   "version": "1.0.0",
   "description": "XState implementation of a swap machine",
-  "main": "src/index.js",
+  "author": "Defuse Protocol",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
@@ -15,8 +21,6 @@
     "format:check": "prettier --check ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
@@ -28,6 +32,12 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.39.0",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.0",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
     "@statelyai/inspect": "^0.4.0",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.5.4",

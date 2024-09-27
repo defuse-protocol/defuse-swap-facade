@@ -21,9 +21,9 @@ export default function parseDefuseAsset(
   try {
     const [blockchain, network, contractId] = defuseAssetId.split(":");
     return {
-      blockchain,
-      network,
-      contractId,
+      blockchain: blockchain as string,
+      network: network as string,
+      contractId: contractId as string,
     };
   } catch (e) {
     console.error("Failed to parse defuse asset id", e);
