@@ -35,7 +35,12 @@ jobs:
       - name: Setup NPM token
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm install --no-frozen-lockfile
+          else
+            pnpm install
+          fi
       - name: Build
         run: pnpm run build
       - name: Release
