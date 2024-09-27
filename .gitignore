@@ -1,0 +1,21 @@
+# Packages
+node_modules
+*.tgz
+
+# Build
+dist/
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+
+# Tests
+coverage/
+.jest/
+test-results/
+
+# TS
+*.tsbuildinfo
+next-env.d.ts
