@@ -1,19 +1,6 @@
-import {
-  createActor,
-  setup,
-  fromPromise,
-  assign,
-  emit,
-  AnyEventObject,
-  spawnChild,
-} from "xstate";
+import { createActor, setup, fromPromise, assign, emit } from "xstate";
 import { createBrowserInspector } from "@statelyai/inspect";
-import {
-  Context,
-  Events,
-  Input,
-  QuoteParams,
-} from "./interfaces/swap-machine.ex.interface";
+import { Context, Events, Input } from "./interfaces/swap-machine.ex.interface";
 import { IntentProcessorService } from "./services/intent-processor.service";
 import { ApiService } from "./services/api.service";
 import {
@@ -67,8 +54,8 @@ export const swapMachine = setup({
   },
   actors: {
     signMessage: fromPromise(async ({ input }) => {
-      return intentProcessorService.signMessage(input).then((data) => data);
-    }), // !IMPORTANT signMessage - Must be provided externaly with implementation
+      throw new Error("signMessage actor must be implemented externally");
+    }),
     broadcastMessage: fromPromise(async ({ input }) => {
       return intentProcessorService.sendMessage(input).then((data) => data);
     }),
@@ -152,7 +139,6 @@ export const swapMachine = setup({
           ] as StateActionAny,
           invoke: {
             id: "signMessage",
-            input: ({ context }: { context: Context }) => context.signedMessage,
             onDone: {
               target: "Broadcasting",
               actions: {
