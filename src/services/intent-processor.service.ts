@@ -26,7 +26,6 @@ import {
   msgSchemaCreateIntentSingleChain,
 } from "../schemes/json-validaton.schema";
 import { MAX_GAS_TRANSACTION, PROTOCOL_ID } from "../constants/constants";
-import { randomBytes } from "crypto";
 
 export class IntentProcessorService {
   constructor(private readonly apiService: ApiService) {}
@@ -235,7 +234,7 @@ export class IntentProcessorService {
   }
 
   generateMessage(input: any): SwapMessageParams {
-    const challenge = randomBytes(32);
+    const challenge = Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
     const message = "Login with NEAR";
     const recipient = "swap-defuse.near";
     return {
@@ -246,7 +245,7 @@ export class IntentProcessorService {
   }
 
   async sendMessage(input: any): Promise<any> {
-    const challenge = randomBytes(32);
+    const challenge = Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
     const message = "Login with NEAR";
     const recipient = "swap-defuse.near";
     return {
