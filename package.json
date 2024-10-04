@@ -1,6 +1,6 @@
 {
   "name": "@defuse-protocol/swap-facade",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "XState implementation of a swap machine",
   "author": "Defuse Protocol",
   "license": "MIT",
