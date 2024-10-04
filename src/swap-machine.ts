@@ -1,5 +1,4 @@
-import { createActor, setup, fromPromise, assign, emit } from "xstate";
-import { createBrowserInspector } from "@statelyai/inspect";
+import { setup, fromPromise, assign, emit } from "xstate";
 import { Context, Events, Input } from "./interfaces/swap-machine.ex.interface";
 import { IntentProcessorService } from "./services/intent-processor.service";
 import { ApiService } from "./services/api.service";
@@ -260,17 +259,3 @@ export const swapMachine = setup({
     },
   },
 });
-
-const isInspectEnabled = process.env.VITE_INSPECT === "true";
-if (isInspectEnabled) {
-  const { inspect } = createBrowserInspector();
-  const actor = createActor(swapMachine, {
-    inspect,
-    input: {
-      assetIn: "",
-      assetOut: "",
-      amountIn: "",
-    },
-  });
-  actor.start();
-}
