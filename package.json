@@ -31,6 +31,7 @@
     "xstate": "^5.17.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.3",
     "@playwright/test": "^1.39.0",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/exec": "^6.0.3",
