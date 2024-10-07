@@ -1,11 +1,15 @@
-import { setup, fromPromise, assign, emit } from "xstate";
-import { Context, Events, Input } from "./interfaces/swap-machine.ex.interface";
-import { IntentProcessorService } from "./services/intent-processor.service";
-import { ApiService } from "./services/api.service";
-import {
+import { assign, emit, fromPromise, setup } from "xstate";
+import type {
+  Context,
+  Events,
+  Input,
+} from "./interfaces/swap-machine.ex.interface";
+import type {
   SolverQuote,
   StateActionAny,
 } from "./interfaces/swap-machine.in.interface";
+import { ApiService } from "./services/api.service";
+import { IntentProcessorService } from "./services/intent-processor.service";
 
 const intentProcessorService = new IntentProcessorService(new ApiService());
 
@@ -29,22 +33,22 @@ export const swapMachine = setup({
         proof: (event.data as { proof: string }).proof,
       }),
     }),
-    emitSuccessBroadcasting: function ({ context, event }, params) {
+    emitSuccessBroadcasting: ({ context, event }, params) => {
       emit({ type: "successBroadcasting", params });
     },
-    emitErrorBroadcasting: function ({ context, event }, params) {
+    emitErrorBroadcasting: ({ context, event }, params) => {
       emit({ type: "errorBroadcasting", params });
     },
-    emitSuccessSetteling: function ({ context, event }, params) {
+    emitSuccessSetteling: ({ context, event }, params) => {
       emit({ type: "successSetteling", params });
     },
-    emitErrorSetteling: function ({ context, event }, params) {
+    emitErrorSetteling: ({ context, event }, params) => {
       emit({ type: "errorSetteling", params });
     },
-    emitSuccessSigning: function ({ context, event }, params) {
+    emitSuccessSigning: ({ context, event }, params) => {
       emit({ type: "successSigning", params });
     },
-    emitErrorSigning: function ({ context, event }, params) {
+    emitErrorSigning: ({ context, event }, params) => {
       emit({ type: "errorSigning", params });
     },
     updateQuotes: assign({
@@ -65,22 +69,22 @@ export const swapMachine = setup({
     }),
   },
   guards: {
-    isSettled: function ({ context, event }) {
+    isSettled: ({ context, event }) => {
       // Add your guard condition here
       return true;
     },
     isIntentIdRegistered: function isIntentIdRegistered({ context }) {
       return !!context?.intent?.intentId;
     },
-    isServiceOffline: function ({ context, event }) {
+    isServiceOffline: ({ context, event }) => {
       // Add your guard condition here
       return true;
     },
-    isEligibleForSigning: function ({ context, event }) {
+    isEligibleForSigning: ({ context, event }) => {
       // Add your guard condition here
       return true;
     },
-    isEligibleForRetry: function ({ context, event }) {
+    isEligibleForRetry: ({ context, event }) => {
       // Add your guard condition here
       return true;
     },

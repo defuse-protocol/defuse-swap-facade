@@ -1,5 +1,5 @@
-import { QuoteParams } from "src/interfaces/swap-machine.ex.interface";
-import { SolverQuote } from "src/interfaces/swap-machine.in.interface";
+import type { QuoteParams } from "src/interfaces/swap-machine.ex.interface";
+import type { SolverQuote } from "src/interfaces/swap-machine.in.interface";
 
 export class IntentProcessorServiceMock {
   count = 0;

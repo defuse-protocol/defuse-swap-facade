@@ -1,4 +1,9 @@
-import { setup, MachineConfig, MachineContext, AnyEventObject } from "xstate";
+import {
+  type AnyEventObject,
+  type MachineConfig,
+  type MachineContext,
+  setup,
+} from "xstate";
 
 type MachineSetup<
   TContext extends MachineContext,

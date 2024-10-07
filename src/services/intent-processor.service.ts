@@ -1,11 +1,19 @@
+import Ajv from "ajv";
+import { MAX_GAS_TRANSACTION, PROTOCOL_ID } from "../constants/constants";
+import type {
+  Context,
+  Input,
+  QuoteParams,
+  SwapMessageParams,
+} from "../interfaces/swap-machine.ex.interface";
 import {
   AssetTypeEnum,
+  type IntentCreateMsg,
   IntentCreateTypeEnum,
-  IntentCreateMsg,
-  PrepareTxCrossChainResult,
-  PrepareTxSingleChainResult,
-  SolverQuote,
-  SubmitIntentResult,
+  type PrepareTxCrossChainResult,
+  type PrepareTxSingleChainResult,
+  type SolverQuote,
+  type SubmitIntentResult,
   TransactionMethodEnum,
 } from "../interfaces/swap-machine.in.interface";
 import {
@@ -13,19 +21,11 @@ import {
   mapCreateIntentTransactionCall,
 } from "../maps/swap-transition.map";
 import {
-  Context,
-  Input,
-  QuoteParams,
-  SwapMessageParams,
-} from "../interfaces/swap-machine.ex.interface";
-import { ApiService } from "./api.service";
-import parseDefuseAsset, { generateIntentId } from "../utils/utils";
-import Ajv from "ajv";
-import {
   msgSchemaCreateIntentCrossChain,
   msgSchemaCreateIntentSingleChain,
 } from "../schemes/json-validaton.schema";
-import { MAX_GAS_TRANSACTION, PROTOCOL_ID } from "../constants/constants";
+import parseDefuseAsset, { generateIntentId } from "../utils/utils";
+import type { ApiService } from "./api.service";
 
 export class IntentProcessorService {
   constructor(private readonly apiService: ApiService) {}

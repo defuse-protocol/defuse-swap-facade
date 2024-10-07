@@ -1,10 +1,10 @@
-import {
+import type {
   Context,
   Input,
   Quote,
   QuoteParams,
 } from "../interfaces/swap-machine.ex.interface";
-import { Intent } from "../interfaces/swap-machine.in.interface";
+import type { Intent } from "../interfaces/swap-machine.in.interface";
 
 export const mockQuote: QuoteParams = {
   assetIn: "near:mainnet:usdt.tether-token.near",
