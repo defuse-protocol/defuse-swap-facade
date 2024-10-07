@@ -17,8 +17,7 @@
     "test:run": "vitest run",
     "test:inspect": "VITE_INSPECT=true vitest --browser",
     "test:coverage": "vitest run --coverage",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "check": "biome check"
   },
   "keywords": [],
   "dependencies": {
@@ -31,6 +30,7 @@
     "xstate": "^5.17.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.3",
     "@playwright/test": "^1.39.0",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/exec": "^6.0.3",
@@ -47,7 +47,6 @@
     "@vitest/ui": "^2.0.5",
     "c8": "^10.1.2",
     "playwright": "^1.39.0",
-    "prettier": "^3.3.3",
     "semantic-release": "^24.1.2",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"

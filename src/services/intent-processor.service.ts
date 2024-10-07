@@ -1,11 +1,19 @@
+import Ajv from "ajv";
+import { MAX_GAS_TRANSACTION, PROTOCOL_ID } from "../constants/constants";
+import type {
+  Context,
+  Input,
+  QuoteParams,
+  SwapMessageParams,
+} from "../interfaces/swap-machine.ex.interface";
 import {
   AssetTypeEnum,
+  type IntentCreateMsg,
   IntentCreateTypeEnum,
-  IntentCreateMsg,
-  PrepareTxCrossChainResult,
-  PrepareTxSingleChainResult,
-  SolverQuote,
-  SubmitIntentResult,
+  type PrepareTxCrossChainResult,
+  type PrepareTxSingleChainResult,
+  type SolverQuote,
+  type SubmitIntentResult,
   TransactionMethodEnum,
 } from "../interfaces/swap-machine.in.interface";
 import {
@@ -13,30 +21,25 @@ import {
   mapCreateIntentTransactionCall,
 } from "../maps/swap-transition.map";
 import {
-  Context,
-  Input,
-  QuoteParams,
-  SwapMessageParams,
-} from "../interfaces/swap-machine.ex.interface";
-import { ApiService } from "./api.service";
-import parseDefuseAsset, { generateIntentId } from "../utils/utils";
-import Ajv from "ajv";
-import {
   msgSchemaCreateIntentCrossChain,
   msgSchemaCreateIntentSingleChain,
 } from "../schemes/json-validaton.schema";
-import { MAX_GAS_TRANSACTION, PROTOCOL_ID } from "../constants/constants";
+import parseDefuseAsset, { generateIntentId } from "../utils/utils";
+import type { ApiService } from "./api.service";
 
 export class IntentProcessorService {
   constructor(private readonly apiService: ApiService) {}
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   static prepareTxSingleChain(intent: any): PrepareTxSingleChainResult | null {
     const from = parseDefuseAsset(intent.assetIn);
-    const contractIdTokenIn = from!.contractId;
+    assert(from, "Invalid assetIn");
+    const contractIdTokenIn = from.contractId;
     const to = parseDefuseAsset(intent.assetOut);
-    const contractIdTokenOut = to!.contractId;
+    assert(to, "Invalid assetOut");
+    const contractIdTokenOut = to.contractId;
 
-    const receiverIdIn = from!.contractId;
+    const receiverIdIn = from.contractId;
     const unitsSendAmount = intent.amountIn;
     const estimateUnitsBackAmount = intent.amountOut;
 
@@ -55,12 +58,12 @@ export class IntentProcessorService {
           : (intent.accountId ?? ""),
       },
       lockup_until: {
-        block_number: intent!.lockup ?? 0,
+        block_number: intent.lockup ?? 0,
       },
       expiration: {
-        block_number: intent!.expiration ?? 0,
+        block_number: intent.expiration ?? 0,
       },
-      referral: intent!.referral ?? "",
+      referral: intent.referral ?? "",
     };
 
     const ajv = new Ajv();
@@ -107,13 +110,16 @@ export class IntentProcessorService {
     };
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   static prepareTxCrossChain(intent: any): PrepareTxCrossChainResult | null {
     const from = parseDefuseAsset(intent.assetIn);
-    const contractIdTokenIn = from!.contractId;
+    assert(from, "Invalid assetIn");
+    const contractIdTokenIn = from.contractId;
     const to = parseDefuseAsset(intent.assetOut);
-    const contractIdTokenOut = to!.contractId;
+    assert(to, "Invalid assetOut");
+    const contractIdTokenOut = to.contractId;
 
-    const receiverIdIn = from!.contractId;
+    const receiverIdIn = from.contractId;
     const unitsSendAmount = intent.amountIn;
     const estimateUnitsBackAmount = intent.amountOut;
 
@@ -128,12 +134,12 @@ export class IntentProcessorService {
         account: intent.accountTo ?? "",
       },
       lockup_until: {
-        block_number: intent!.lockup ?? 0,
+        block_number: intent.lockup ?? 0,
       },
       expiration: {
-        block_number: intent!.expiration ?? 0,
+        block_number: intent.expiration ?? 0,
       },
-      referral: intent!.referral ?? "",
+      referral: intent.referral ?? "",
     };
 
     const ajv = new Ajv();
@@ -141,7 +147,7 @@ export class IntentProcessorService {
     const isValid = validate(msg);
     if (!isValid) {
       console.log("Validation errors:", validate.errors);
-      throw new Error(`Validation schema errors`);
+      throw new Error("Validation schema errors");
     }
 
     const params = {} as PrepareTxCrossChainResult["actions"][0]["params"];
@@ -233,6 +239,7 @@ export class IntentProcessorService {
     };
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   generateMessage(input: any): SwapMessageParams {
     const challenge = Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
     const message = "Login with NEAR";
@@ -244,6 +251,7 @@ export class IntentProcessorService {
     };
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   async sendMessage(input: any): Promise<any> {
     const challenge = Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
     const message = "Login with NEAR";
@@ -255,7 +263,14 @@ export class IntentProcessorService {
     };
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   async updateIntentState(input: any): Promise<string> {
     return "";
+  }
+}
+
+function assert(condition: unknown, msg: string): asserts condition {
+  if (!condition) {
+    throw new Error(msg);
   }
 }

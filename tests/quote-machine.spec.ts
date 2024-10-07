@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { createActor, fromPromise } from "xstate";
-import { QuoteParams, quoteMachine } from "../src";
+import { type QuoteParams, quoteMachine } from "../src";
 import { mockInput } from "../src/mocks/entity.mock";
 import { IntentProcessorServiceMock } from "../src/mocks/intent-processor.service.mock";
 import { sleep } from "../src/utils/utils";
@@ -67,9 +67,9 @@ describe("quoteMachine", () => {
     actor.send({
       type: "SET_PARAMS",
       data: {
-        assetIn: mockInput!.assetIn!,
-        assetOut: mockInput!.assetOut!,
-        amountIn: mockInput!.amountIn!,
+        assetIn: mockInput.assetIn,
+        assetOut: mockInput.assetOut,
+        amountIn: mockInput.amountIn,
       },
     });
 
@@ -105,9 +105,9 @@ describe("quoteMachine", () => {
     actor.send({
       type: "SET_PARAMS",
       data: {
-        assetIn: mockInput!.assetIn!,
-        assetOut: mockInput!.assetOut!,
-        amountIn: mockInput!.amountIn!,
+        assetIn: mockInput.assetIn,
+        assetOut: mockInput.assetOut,
+        amountIn: mockInput.amountIn,
       },
     });
 

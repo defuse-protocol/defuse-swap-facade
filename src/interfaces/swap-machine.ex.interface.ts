@@ -1,4 +1,4 @@
-import { Intent, SolverQuote } from "./swap-machine.in.interface";
+import type { Intent, SolverQuote } from "./swap-machine.in.interface";
 
 // TODO : refactor this description
 /**

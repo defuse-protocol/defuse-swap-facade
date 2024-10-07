@@ -1,11 +1,15 @@
-import { setup, emit, fromPromise, assign } from "xstate";
-import {
+import { assign, emit, fromPromise, setup } from "xstate";
+import type {
+  Context,
+  Events,
+  Input,
+} from "./interfaces/swap-machine.ex.interface";
+import type {
   SolverQuote,
   StateActionAny,
 } from "./interfaces/swap-machine.in.interface";
-import { Context, Events, Input } from "./interfaces/swap-machine.ex.interface";
-import { IntentProcessorService } from "./services/intent-processor.service";
 import { ApiService } from "./services/api.service";
+import { IntentProcessorService } from "./services/intent-processor.service";
 
 const intentProcessorService = new IntentProcessorService(new ApiService());
 

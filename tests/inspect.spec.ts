@@ -1,5 +1,5 @@
-import { it } from "vitest";
 import { createBrowserInspector } from "@statelyai/inspect";
+import { it } from "vitest";
 import { createActor } from "xstate";
 import { swapMachine } from "../src";
 

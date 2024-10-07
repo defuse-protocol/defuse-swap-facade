@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
 
 axios.defaults.timeout = 5000;
 
@@ -10,6 +10,7 @@ export class HttpService {
       .catch((resp) => resp.error);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   post<T>(url: string, data: any): Promise<T> {
     return axios
       .post(url, data)
