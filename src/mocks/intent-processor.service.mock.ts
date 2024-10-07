@@ -14,20 +14,21 @@ export class IntentProcessorServiceMock {
       {
         query_id: this.increment(),
         tokens: {
-          "nep141:ft1.near": "-1000" + this.count,
-          "nep141:ft2.near": "2000" + this.count,
+          "nep141:ft1.near": `-1000${this.count}`,
+          "nep141:ft2.near": `2000${this.count}`,
         },
       },
       {
         query_id: this.increment(),
         tokens: {
-          "nep141:ft1.near": "-100" + this.count,
-          "nep141:ft2.near": "200" + this.count,
+          "nep141:ft1.near": `-100${this.count}`,
+          "nep141:ft2.near": `200${this.count}`,
         },
       },
     ];
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   async prepareSignMessage(input: any): Promise<any> {
     return {
       message: "Login with NEAR",

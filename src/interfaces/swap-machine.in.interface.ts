@@ -18,7 +18,7 @@ export type GuardArgs<TContext, TEvent> = {
 };
 
 // TODO: Fix any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: <reason>
 export type StateActionAny = any;
 
 export enum SwapProgressEnum {

@@ -66,9 +66,9 @@ describe("swapMachine", () => {
     quoteActor.send({
       type: "SET_PARAMS",
       data: {
-        assetIn: mockInput!.assetIn!,
-        assetOut: mockInput!.assetOut!,
-        amountIn: mockInput!.amountIn!,
+        assetIn: mockInput.assetIn,
+        assetOut: mockInput.assetOut,
+        amountIn: mockInput.amountIn,
       },
     });
 
@@ -86,6 +86,7 @@ describe("swapMachine", () => {
     swapActor.stop();
   });
 
+  /*
   it.skip("should transition to Signing state and prepare message to sign", async () => {
     const intentProcessorServiceMock = new IntentProcessorServiceMock();
     const actor = createActor(swapMachine).start();
@@ -295,4 +296,5 @@ describe("swapMachine", () => {
 
     actor.stop();
   });
+   */
 });

@@ -34,12 +34,12 @@ export const mockAssetOutSelector = {
   routes: [],
 };
 
-export const mockInput: Input = {
+export const mockInput = {
   assetIn: "near:mainnet:usdt.tether-token.near",
   assetOut:
     "near:mainnet:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
   amountIn: "10000000",
-};
+} satisfies Input;
 
 export const mockIntent = {
   hash: "GAHrgNnnyZ6kqY1uSziYRGsXuspc8NnDA1rTFZbw11Wi",

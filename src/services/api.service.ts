@@ -42,10 +42,10 @@ export class ApiService {
 
         const intentDetails = JSON.parse(jsonString);
         return intentDetails;
-      } else {
-        console.error("Unexpected response format:", response);
-        return null;
       }
+
+      console.error("Unexpected response format:", response);
+      return null;
     } catch (error) {
       console.error("Failed to get intent:", error);
       return null;
@@ -73,10 +73,10 @@ export class ApiService {
       );
       if (response?.result?.length > 0) {
         return response.result;
-      } else {
-        console.error("Unexpected response format:", response);
-        return [];
       }
+
+      console.error("Unexpected response format:", response);
+      return [];
     } catch (error) {
       console.error("Failed to get quotes:", error);
       return [];

@@ -18,11 +18,12 @@ import parseDefuseAsset from "../utils/utils";
  * - Use TON chain ids - "1100" or other.
  * - Use Solana chain ids - mainnet or other.
  */
+// biome-ignore lint/suspicious/noExplicitAny: <reason>
 export const mapCreateIntentTransactionCall = (input: Input): any => {
-  const from = parseDefuseAsset(input!.assetIn!);
+  const from = input.assetIn ? parseDefuseAsset(input.assetIn) : null;
   const fromNetworkId =
     `${from?.blockchain}:${from?.network}` as MapsNetworkEnum;
-  const to = parseDefuseAsset(input!.assetOut!);
+  const to = input.assetOut ? parseDefuseAsset(input.assetOut) : null;
   const toNetworkId = `${to?.blockchain}:${to?.network}` as MapsNetworkEnum;
 
   switch (fromNetworkId) {

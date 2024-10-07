@@ -67,9 +67,9 @@ describe("quoteMachine", () => {
     actor.send({
       type: "SET_PARAMS",
       data: {
-        assetIn: mockInput!.assetIn!,
-        assetOut: mockInput!.assetOut!,
-        amountIn: mockInput!.amountIn!,
+        assetIn: mockInput.assetIn,
+        assetOut: mockInput.assetOut,
+        amountIn: mockInput.amountIn,
       },
     });
 
@@ -105,9 +105,9 @@ describe("quoteMachine", () => {
     actor.send({
       type: "SET_PARAMS",
       data: {
-        assetIn: mockInput!.assetIn!,
-        assetOut: mockInput!.assetOut!,
-        amountIn: mockInput!.amountIn!,
+        assetIn: mockInput.assetIn,
+        assetOut: mockInput.assetOut,
+        amountIn: mockInput.amountIn,
       },
     });
 

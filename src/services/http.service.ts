@@ -10,6 +10,7 @@ export class HttpService {
       .catch((resp) => resp.error);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   post<T>(url: string, data: any): Promise<T> {
     return axios
       .post(url, data)
