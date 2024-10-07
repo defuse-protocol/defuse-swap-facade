@@ -1,9 +1,15 @@
-import { setup, MachineConfig, MachineContext, AnyEventObject } from "xstate";
+import {
+  type AnyEventObject,
+  type MachineConfig,
+  type MachineContext,
+  setup,
+} from "xstate";
 
 type MachineSetup<
   TContext extends MachineContext,
   TEvents extends AnyEventObject,
   TInput,
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
 > = ReturnType<any>;
 
 export class SwapMachineFactory<
@@ -16,7 +22,9 @@ export class SwapMachineFactory<
     this.machineSetup = setup;
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <reason>
   createMachine(definition: MachineConfig<TContext, any, any>) {
+    // biome-ignore lint/suspicious/noExplicitAny: <reason>
     return setup(this.machineSetup).createMachine(definition as any);
   }
 }

@@ -1,10 +1,10 @@
-import parseDefuseAsset from "../utils/utils";
+import type { Input } from "../interfaces/swap-machine.ex.interface";
 import {
   AssetTypeEnum,
   MapsNetworkEnum,
 } from "../interfaces/swap-machine.in.interface";
 import { IntentProcessorService } from "../services/intent-processor.service";
-import { Input } from "../interfaces/swap-machine.ex.interface";
+import parseDefuseAsset from "../utils/utils";
 
 /**
  * Function prepares a transaction call data depends on inputs for different intents.
@@ -18,11 +18,12 @@ import { Input } from "../interfaces/swap-machine.ex.interface";
  * - Use TON chain ids - "1100" or other.
  * - Use Solana chain ids - mainnet or other.
  */
+// biome-ignore lint/suspicious/noExplicitAny: <reason>
 export const mapCreateIntentTransactionCall = (input: Input): any => {
-  const from = parseDefuseAsset(input!.assetIn!);
+  const from = input.assetIn ? parseDefuseAsset(input.assetIn) : null;
   const fromNetworkId =
     `${from?.blockchain}:${from?.network}` as MapsNetworkEnum;
-  const to = parseDefuseAsset(input!.assetOut!);
+  const to = input.assetOut ? parseDefuseAsset(input.assetOut) : null;
   const toNetworkId = `${to?.blockchain}:${to?.network}` as MapsNetworkEnum;
 
   switch (fromNetworkId) {

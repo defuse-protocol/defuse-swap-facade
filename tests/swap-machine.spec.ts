@@ -1,11 +1,16 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { createActor, fromPromise } from "xstate";
-import { Events, quoteMachine, QuoteParams, swapMachine } from "../src";
-import { mockInput, mockQuote, mockQuotes } from "../src/mocks/entity.mock";
 import {
-  SolverQuote,
+  type Events,
+  type QuoteParams,
+  quoteMachine,
+  swapMachine,
+} from "../src";
+import {
+  type SolverQuote,
   SwapProgressEnum,
 } from "../src/interfaces/swap-machine.in.interface";
+import { mockInput, mockQuote, mockQuotes } from "../src/mocks/entity.mock";
 import { IntentProcessorServiceMock } from "../src/mocks/intent-processor.service.mock";
 import { sleep } from "../src/utils/utils";
 
@@ -61,9 +66,9 @@ describe("swapMachine", () => {
     quoteActor.send({
       type: "SET_PARAMS",
       data: {
-        assetIn: mockInput!.assetIn!,
-        assetOut: mockInput!.assetOut!,
-        amountIn: mockInput!.amountIn!,
+        assetIn: mockInput.assetIn,
+        assetOut: mockInput.assetOut,
+        amountIn: mockInput.amountIn,
       },
     });
 
@@ -81,6 +86,7 @@ describe("swapMachine", () => {
     swapActor.stop();
   });
 
+  /*
   it.skip("should transition to Signing state and prepare message to sign", async () => {
     const intentProcessorServiceMock = new IntentProcessorServiceMock();
     const actor = createActor(swapMachine).start();
@@ -290,4 +296,5 @@ describe("swapMachine", () => {
 
     actor.stop();
   });
+   */
 });

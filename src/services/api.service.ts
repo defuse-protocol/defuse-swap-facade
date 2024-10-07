@@ -1,13 +1,13 @@
-import { HttpService } from "./http.service";
 import { Buffer } from "buffer";
-import {
+import { NEAR_RPC, PROTOCOL_ID, SOLVER_RELAY } from "../constants/constants";
+import type { QuoteParams } from "../interfaces/swap-machine.ex.interface";
+import type {
   HttpResponse,
   IntentDetails,
   NearHttpResponse,
   SolverQuote,
 } from "../interfaces/swap-machine.in.interface";
-import { QuoteParams } from "../interfaces/swap-machine.ex.interface";
-import { NEAR_RPC, PROTOCOL_ID, SOLVER_RELAY } from "../constants/constants";
+import { HttpService } from "./http.service";
 
 export class ApiService {
   private httpService: HttpService;
@@ -42,10 +42,10 @@ export class ApiService {
 
         const intentDetails = JSON.parse(jsonString);
         return intentDetails;
-      } else {
-        console.error("Unexpected response format:", response);
-        return null;
       }
+
+      console.error("Unexpected response format:", response);
+      return null;
     } catch (error) {
       console.error("Failed to get intent:", error);
       return null;
@@ -83,6 +83,9 @@ export class ApiService {
         console.error("Unexpected response format:", response);
         return [];
       }
+
+      console.error("Unexpected response format:", response);
+      return [];
     } catch (error) {
       console.error("Failed to get quotes:", error);
       return [];
