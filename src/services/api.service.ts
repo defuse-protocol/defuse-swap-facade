@@ -72,7 +72,13 @@ export class ApiService {
         payload,
       );
       if (response?.result?.length > 0) {
-        return response.result;
+        const dataAdapter = response.result.map((quote) => {
+          return {
+            solverId: (quote as any).solver_id,
+            amountOut: (quote as any).amount_out.toString(),
+          };
+        });
+        return dataAdapter as unknown as SolverQuote[];
       } else {
         console.error("Unexpected response format:", response);
         return [];

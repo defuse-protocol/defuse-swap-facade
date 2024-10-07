@@ -45,10 +45,8 @@ describe("quoteMachine", () => {
     expect(snapshot.context.intent).toBeDefined();
     expect(snapshot.context.quotes).toBeInstanceOf(Array);
 
-    if (snapshot.context.quotes.length > 0) {
-      expect(snapshot.context.quotes[0]).toHaveProperty("query_id");
-      expect(snapshot.context.quotes[0]).toHaveProperty("tokens");
-    }
+    expect(snapshot.context.quotes[0]).toHaveProperty("query_id");
+    expect(snapshot.context.quotes[0]).toHaveProperty("tokens");
 
     actor.stop();
   });

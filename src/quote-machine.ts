@@ -16,15 +16,21 @@ export const quoteMachine = setup({
     input: {} as Input,
   },
   actions: {
-    emitSuccessQuoting: emit(({ context }) => ({
-      type: "QUOTES_UPDATED",
-      data: context.quotes,
-    })),
-    emitFailerQuoting: emit({
-      type: "QUOTES_FETCH_FAILED",
+    emitSuccessQuoting: emit(({ context }) => {
+      console.log("Emitting QUOTES_UPDATED event", context.quotes);
+      return {
+        type: "QUOTES_UPDATED",
+        data: context.quotes,
+      };
+    }),
+    emitFailerQuoting: emit(() => {
+      console.log("Emitting QUOTES_FETCH_FAILED event");
+      return {
+        type: "QUOTES_FETCH_FAILED",
+      };
     }),
     updateQuotes: assign({
-      quotes: ({ event }) => (event.output as SolverQuote[]) || [],
+      quotes: ({ event }) => (event?.output as SolverQuote[]) || [],
     }),
     updateIntent: assign({
       intent: ({ event, context }) => ({
@@ -34,9 +40,10 @@ export const quoteMachine = setup({
     }),
   },
   actors: {
-    fetchQuotes: fromPromise(async ({ input }: { input: Partial<Input> }) => {
-      return intentProcessorService.fetchQuotes(input).then((data) => data);
-    }),
+    fetchQuotes: fromPromise(
+      async ({ input }: { input: Partial<Input> }) =>
+        await intentProcessorService.fetchQuotes(input),
+    ),
   },
 }).createMachine({
   context: ({ input }: { input: Partial<Input> }) => ({
@@ -59,8 +66,8 @@ export const quoteMachine = setup({
         },
       },
       after: {
-        "500": {
-          target: "Quoting",
+        "5000": {
+          target: "Revaluation",
         },
       },
       invoke: {
@@ -81,6 +88,11 @@ export const quoteMachine = setup({
       },
       description:
         "Polling the solver bus and receiving proposals through POST requests. \n\nLater, we plan to switch to two-way communication using WebSockets.\n\nResult:\n\n- Update \\[context\\] with list of quotes;",
+    },
+    Revaluation: {
+      always: {
+        target: "Quoting",
+      },
     },
   },
 });

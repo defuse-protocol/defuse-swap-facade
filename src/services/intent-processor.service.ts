@@ -182,10 +182,16 @@ export class IntentProcessorService {
 
   async fetchQuotes(params: Partial<QuoteParams>): Promise<SolverQuote[]> {
     if (!params.assetIn || !params.assetOut || !params.amountIn) {
-      throw new Error("Invalid quote parameters");
+      console.warn("Invalid quote parameters");
+      return [];
     }
-    const quotes = await this.apiService.getQuotes(params as QuoteParams);
-    return quotes;
+    try {
+      const quotes = await this.apiService.getQuotes(params as QuoteParams);
+      return quotes;
+    } catch (error) {
+      console.warn("Error fetching quotes:", error);
+      return [];
+    }
   }
 
   async prepareSwapCallData(intent: Input): Promise<SubmitIntentResult> {
