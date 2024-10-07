@@ -17,8 +17,7 @@
     "test:run": "vitest run",
     "test:inspect": "VITE_INSPECT=true vitest --browser",
     "test:coverage": "vitest run --coverage",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "check": "biome check"
   },
   "keywords": [],
   "dependencies": {
