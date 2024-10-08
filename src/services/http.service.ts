@@ -1,7 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
 
-axios.defaults.timeout = 5000;
-
 export class HttpService {
   get<T>(url: string): Promise<T> {
     return axios
