@@ -74,8 +74,10 @@ export class ApiService {
       if (response?.result?.length > 0) {
         const dataAdapter = response.result.map((quote) => {
           return {
-            solverId: quote.solver_id,
-            amountOut: quote.amount_out.toString(),
+            // biome-ignore lint/suspicious/noExplicitAny: Outdated quote interface
+            solverId: (quote as any).solver_id,
+            // biome-ignore lint/suspicious/noExplicitAny: Outdated quote interface
+            amountOut: (quote as any).amount_out.toString(),
           };
         });
         return dataAdapter as unknown as SolverQuote[];

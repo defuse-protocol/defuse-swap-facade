@@ -34,7 +34,7 @@ export const quoteMachine = setup({
       };
     }),
     updateQuotes: assign({
-      quotes: ({ event }) => (event?.output as SolverQuote[]) || [],
+      quotes: ({ event }) => (event?.output ?? []) as SolverQuote[],
     }),
     updateIntent: assign({
       intent: ({ event, context }) => ({
@@ -44,9 +44,8 @@ export const quoteMachine = setup({
     }),
   },
   actors: {
-    fetchQuotes: fromPromise(
-      async ({ input }: { input: Partial<Input> }) =>
-        await intentProcessorService.fetchQuotes(input),
+    fetchQuotes: fromPromise(({ input }: { input: Partial<Input> }) =>
+      intentProcessorService.fetchQuotes(input),
     ),
   },
 }).createMachine({
